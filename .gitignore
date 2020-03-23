@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 .idea
 config/config.json
+data/events.ics
