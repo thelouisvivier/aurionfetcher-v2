@@ -1,12 +1,10 @@
 const etree = require('elementtree');
 
 module.exports = async function (trail) {
-  console.log("Starting events formater...");
-
-  let xml = etree.parse(trail.data);
+ let xml = etree.parse(trail.data);
   let events = JSON.parse(xml.findall(".//update")[1].text)["events"];
 
-  let formatedEvents = new Array();
+  let formattedEvents = new Array();
 
   for (const e of events) {
     let tmp = e["title"];
@@ -29,7 +27,7 @@ module.exports = async function (trail) {
       courseTitle = courseTitle2RE.exec(tmp)[1].trim();
     }
     else {
-      //old methode
+      //old method
       let tmpCt = tmp.split("\n");
       for (let e of tmpCt){
         e = e.trim();
@@ -70,12 +68,12 @@ module.exports = async function (trail) {
     }
 
     tmp = {"start":e["start"], "end":e["end"] ,"course":courseTitle, "location":location, "teacher":teacherName};
-    formatedEvents.push(tmp);
+    formattedEvents.push(tmp);
   }
 
-  trail.formatedEvents = formatedEvents;
+  trail.formattedEvents = formattedEvents;
 
-  console.log("Events formated !");
+  console.log("Events formatted !");
   return true;
 };
 

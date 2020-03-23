@@ -2,8 +2,6 @@ const puppeteer = require('puppeteer');
 const config = require('../config/config.json')
 
 module.exports = async function(trail){
-  console.log("Starting credentials fetcher...");
-
   const browser = await puppeteer.launch({
     args: [
       '--no-sandbox',

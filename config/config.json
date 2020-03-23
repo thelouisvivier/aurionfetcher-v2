@@ -4,6 +4,8 @@
   "domain": "aurion.yncrea.fr",
   "startDate": 1567352828,
   "endDate": 1593618428,
+  "alarm": true,
+  "xMinutesBeforeEventAlarm": 15,
   "port":8080,
   "refreshInterval":3600,
   "telegramBotToken" : "" ,
