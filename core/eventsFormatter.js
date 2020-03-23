@@ -71,9 +71,9 @@ module.exports = async function (trail) {
     formattedEvents.push(tmp);
   }
 
-  trail.formatedEvents = formattedEvents;
+  trail.formattedEvents = formattedEvents;
 
-  console.log("Events formated !");
+  console.log("Events formatted !");
   return true;
 };
 
