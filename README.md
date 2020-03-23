@@ -1,6 +1,6 @@
 # aurionfetcherjs
 
-Programme en python permettant de télécharger le planning d'Aurion, et mettre le calendrier à disposition via une souscription iCal, puis notifier l'utilisateur sur telegram en cas de changements et de problèmes.  
+Programme en javascript permettant de télécharger le planning d'Aurion, et mettre le calendrier à disposition via une souscription iCal, puis notifier l'utilisateur sur telegram en cas de changements et de problèmes.  
 
 **thelouisvivier - 2020**  
 
