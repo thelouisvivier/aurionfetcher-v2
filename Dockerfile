@@ -17,7 +17,7 @@ RUN chmod +x /usr/local/bin/dumb-init
 WORKDIR /app
 COPY . .
 
-RUN ln -s /config /config
+RUN ln -s /app/config /config
 
 VOLUME /config
 
