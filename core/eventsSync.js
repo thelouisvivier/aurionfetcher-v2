@@ -6,7 +6,7 @@ const config = require('../config/config.json')
 module.exports = async function (trail) {
   const icsEvents = ical.sync.parseFile('data/events.ics');
 
-  trail.fetchedEventsNbr = trail.formatedEvents.length;
+  trail.fetchedEventsNbr = trail.formattedEvents.length;
   trail.editedEvents = new Array();
   trail.addedEvents = new Array();
 
@@ -26,7 +26,7 @@ module.exports = async function (trail) {
       let icsStart = new Date(icsEvent.start.toISOString());
       let icsEnd = new Date(icsEvent.end.toISOString());
 
-      for (const eventToAdd of trail.formatedEvents){
+      for (const eventToAdd of trail.formattedEvents){
         let start = new Date(eventToAdd.start);
         let end = new Date(eventToAdd.end);
 
@@ -55,7 +55,7 @@ module.exports = async function (trail) {
     }
 
     //Loop on new events, and add them to ics parser
-    for (const eventToAdd of trail.formatedEvents){
+    for (const eventToAdd of trail.formattedEvents){
       let start = new Date(eventToAdd.start);
       let end = new Date(eventToAdd.end);
       if (typeof(eventToAdd.checked) == 'undefined'){
@@ -91,7 +91,7 @@ module.exports = async function (trail) {
     }
 
     //Loop on fetched events & add them to ics parser
-    for (const eventToAdd of trail.formatedEvents){
+    for (const eventToAdd of trail.formattedEvents){
       let start = new Date(eventToAdd.start);
       let end = new Date(eventToAdd.end);
       let tmp = {start:[start.getFullYear(),start.getMonth()+1,start.getDate(),start.getHours(),start.getMinutes()], end:[end.getFullYear(),end.getMonth()+1,end.getDate(),end.getHours(),end.getMinutes()], title:eventToAdd.course ,location:eventToAdd.location, description:eventToAdd.teacher, alarms:alarm,productId:"AurionFetcherJS"};
@@ -109,7 +109,7 @@ module.exports = async function (trail) {
   }
 
 
-  console.log("Events compared !");
+  console.log("Events synced !");
   return true;
 };
 

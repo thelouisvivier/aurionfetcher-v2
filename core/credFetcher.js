@@ -18,7 +18,7 @@ module.exports = async function(trail){
     deviceScaleFactor: 1
   });
 
-  await page.goto('https://'+config.domain+'/faces/Logi.xhtml');
+  await page.goto('https://'+config.domain+'/faces/Login.xhtml');
   await page.type('#username', config.username);
   await page.type('#password', config.password);
   await page.keyboard.press('Enter');
