@@ -4,7 +4,12 @@ const config = require('../config/config.json')
 module.exports = async function(trail){
   console.log("Starting credentials fetcher...");
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox'
+    ]
+  });
   const page = await browser.newPage();
   await page.setExtraHTTPHeaders({
     'Accept-Language': 'fr'
