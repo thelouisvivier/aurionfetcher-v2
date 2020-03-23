@@ -13,8 +13,9 @@ async function runner() {
     await eventsFetcher(trail);
     await eventsFormater(trail);
     await eventsSync(trail);
-    await notify(trail);
+    await notify.onSync(trail);
     setTimeout(runner, config.refreshInterval*1000);
 }
 server();
+notify.onBoot();
 runner();
