@@ -1,6 +1,7 @@
-const ical = require('node-ical');
+const ical = require('node-ical')
 const ics = require('ics')
 const {writeFileSync} = require('fs')
+const config = require('../config/config.json')
 
 module.exports = async function (trail) {
   console.log("Starting events comparing...");
@@ -16,11 +17,11 @@ module.exports = async function (trail) {
     let eventsToSync = new Array();
 
     let alarm;
-    if(config.alarm === true){
-      alarm = { action: 'display', trigger: {minutes: config.xMinutesBeforeEventAlarm, before: true }};
+    if(config.alarm){
+      alarm = [{action: 'display', trigger: {minutes: config.xMinutesBeforeEventAlarm, before: true }}];
     }
     else{
-      alarm = null;
+      alarm = [];
     }
 
     for (const icsEvent of Object.values(icsEvents)) {
@@ -85,10 +86,10 @@ module.exports = async function (trail) {
 
     let alarm;
     if(config.alarm === true){
-      alarm = { action: 'display', trigger: {minutes: config.xMinutesBeforeEventAlarm, before: true }};
+      alarm = [{ action: 'display', trigger: {minutes: config.xMinutesBeforeEventAlarm, before: true }}];
     }
     else{
-      alarm = null;
+      alarm = [];
     }
 
     //Loop on fetched events & add them to ics parser
