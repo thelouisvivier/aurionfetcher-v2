@@ -109,7 +109,7 @@ module.exports = async function (trail) {
   }
 
 
-  console.log("Events synced !");
+  console.log("          Events synced !");
   return true;
 };
 

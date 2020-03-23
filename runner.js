@@ -10,6 +10,8 @@ const config = require('./config/config.json')
 var trail = {};
 
 async function runner() {
+    let now = new Date(Date.now()).toLocaleString();
+    console.log(now);
     try {
         await credFetcher(trail);
     }
@@ -55,7 +57,7 @@ async function runner() {
         setTimeout(runner,1200*1000);//20min
         return;
     }
-    console.log("Going to sleep for "+config.refreshInterval+" seconds");
+    console.log("          Going to sleep for "+config.refreshInterval+" seconds");
     setTimeout(runner, config.refreshInterval*1000);
 }
 
