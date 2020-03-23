@@ -11,15 +11,6 @@ var trail = {};
 
 async function runner() {
     try {
-        await configChecker();
-    }
-    catch(error) {
-        console.error(error+"\nTrying again in 20min");
-        notify.onError(error);
-        setTimeout(runner,1200*1000);//20min
-        return;
-    }
-    try {
         await credFetcher(trail);
     }
     catch(error) {
@@ -64,9 +55,26 @@ async function runner() {
         setTimeout(runner,1200*1000);//20min
         return;
     }
+    console.log("Going to sleep for "+config.refreshInterval+" seconds");
     setTimeout(runner, config.refreshInterval*1000);
 }
 
-server();
+try {
+    server();
+}
+catch(error) {
+    console.error(error);
+    process.exit(1);
+}
+
+try {
+    configChecker();
+}
+catch(error) {
+    console.error(error);
+    process.exit(1);
+}
+
 notify.onBoot();
+
 runner();
