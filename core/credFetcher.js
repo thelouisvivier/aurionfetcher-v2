@@ -48,6 +48,6 @@ module.exports = async function(trail){
   trail.sessionId = sessionIdValue;
 
   await browser.close();
-  console.log("Credentials fetched !");
+  console.log("          Credentials fetched !");
   return true;
 };

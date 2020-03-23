@@ -3,7 +3,6 @@ const querystring = require('querystring');
 const config = require('../config/config.json')
 
 module.exports = async function (trail) {
-  console.log("Starting events fetcher...");
   const headers = {
     "Host": config.domain,
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
@@ -44,7 +43,7 @@ module.exports = async function (trail) {
 
   //console.log(`Date: ${res.headers.date}`);
   //console.log(`Data: ${res.data}`);
-  console.log("Events fetched !");
+  console.log("          Events fetched !");
   //console.log(res.data);
   trail.data = res.data;
   return true;
