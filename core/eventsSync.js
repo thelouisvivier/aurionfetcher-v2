@@ -4,8 +4,6 @@ const {writeFileSync} = require('fs')
 const config = require('../config/config.json')
 
 module.exports = async function (trail) {
-  console.log("Starting events comparing...");
-
   const icsEvents = ical.sync.parseFile('data/events.ics');
 
   trail.fetchedEventsNbr = trail.formatedEvents.length;

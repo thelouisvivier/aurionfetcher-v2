@@ -1,9 +1,7 @@
 const etree = require('elementtree');
 
 module.exports = async function (trail) {
-  console.log("Starting events formater...");
-
-  let xml = etree.parse(trail.data);
+ let xml = etree.parse(trail.data);
   let events = JSON.parse(xml.findall(".//update")[1].text)["events"];
 
   let formattedEvents = new Array();
