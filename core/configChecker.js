@@ -1,6 +1,6 @@
 const config = require('../config/config.json')
 
-module.exports = async function(trail){
+module.exports = function(trail){
     if (config.username == ""){
         throw new Error("config.json : Empty username");
     }
