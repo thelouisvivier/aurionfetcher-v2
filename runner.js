@@ -9,13 +9,54 @@ const config = require('./config/config.json')
 var trail = {};
 
 async function runner() {
-    await credFetcher(trail);
-    await eventsFetcher(trail);
-    await eventsFormater(trail);
-    await eventsSync(trail);
-    await notify.onSync(trail);
+    try {
+        await credFetcher(trail);
+    }
+    catch(error) {
+        console.error(error+"\nTrying again in 20min");
+        notify.onError(error);
+        setTimeout(runner,1200*1000);//20min
+        return;
+    }
+    try {
+        await eventsFetcher(trail);
+    }
+    catch(error) {
+        console.error(error+"\nTrying again in 20min");
+        notify.onError(error);
+        setTimeout(runner,1200*1000);//20min
+        return;
+    }
+    try {
+        await eventsFormater(trail);
+    }
+    catch(error) {
+        console.error(error+"\nTrying again in 20min");
+        notify.onError(error);
+        setTimeout(runner,1200*1000);//20min
+        return;
+    }
+    try {
+        await eventsSync(trail);
+    }
+    catch(error) {
+        console.error(error+"\nTrying again in 20min");
+        notify.onError(error);
+        setTimeout(runner,1200*1000);//20min
+        return;
+    }
+    try {
+        await notify.onSync(trail);
+    }
+    catch(error) {
+        console.error(error+"\nTrying again in 20min");
+        notify.onError(error);
+        setTimeout(runner,1200*1000);//20min
+        return;
+    }
     setTimeout(runner, config.refreshInterval*1000);
 }
+
 server();
 notify.onBoot();
 runner();
