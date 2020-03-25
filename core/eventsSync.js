@@ -1,7 +1,7 @@
-const ical = require('node-ical')
-const ics = require('ics')
-const {writeFileSync} = require('fs')
-const config = require('../config/config.json')
+const ical = require('node-ical');
+const ics = require('ics');
+const {writeFileSync} = require('fs');
+const config = require('../config/config.json');
 
 module.exports = async function (trail) {
   const icsEvents = ical.sync.parseFile('data/events.ics');
@@ -32,10 +32,10 @@ module.exports = async function (trail) {
 
         //Loop on unchecked events
         if (typeof(eventToAdd.checked) == 'undefined'){
-          if (start.getTime() == icsStart.getTime() && end.getTime() == icsEnd.getTime() && icsEvent.summary == eventToAdd.course){
+          if (start.getTime() === icsStart.getTime() && end.getTime() === icsEnd.getTime() && icsEvent.summary === eventToAdd.course){
 
             //Unmodified event
-            if(icsEvent.description == eventToAdd.teacher &&  icsEvent.location == eventToAdd.location){
+            if(icsEvent.description === eventToAdd.teacher &&  icsEvent.location === eventToAdd.location){
               let tmp = {start:[icsStart.getFullYear(),icsStart.getMonth()+1,icsStart.getDate(),icsStart.getHours(),icsStart.getMinutes()], end:[icsEnd.getFullYear(),icsEnd.getMonth()+1,icsEnd.getDate(),icsEnd.getHours(),icsEnd.getMinutes()], title:icsEvent.summary ,location:icsEvent.location, description:icsEvent.description,alarms:alarm, productId:"AurionFetcherJS", uid:icsEvent.uid};
               eventsToSync.push(tmp);
               eventToAdd.checked = true;
@@ -43,9 +43,23 @@ module.exports = async function (trail) {
 
             //Edited event
             else {
+              let location;
+              let description;
+              if(icsEvent.location === eventToAdd.location){
+                location = icsEvent.location;
+              }
+              else{
+                location = strikeThrough(icsEvent.location)+" "+eventToAdd.location;
+              }
+              if(icsEvent.description === eventToAdd.teacher){
+                description = icsEvent.description;
+              }
+              else{
+                description = strikeThrough(icsEvent.description)+" "+eventToAdd.teacher;
+              }
               let tmp = {start:[icsStart.getFullYear(),icsStart.getMonth()+1,icsStart.getDate(),icsStart.getHours(),icsStart.getMinutes()], end:[icsEnd.getFullYear(),icsEnd.getMonth()+1,icsEnd.getDate(),icsEnd.getHours(),icsEnd.getMinutes()], title:icsEvent.summary ,location:eventToAdd.location, description:eventToAdd.teacher, alarms:alarm,productId:"AurionFetcherJS", uid:icsEvent.uid};
               eventsToSync.push(tmp);
-              let tmp2 = {start:[icsStart.getFullYear(),icsStart.getMonth()+1,icsStart.getDate(),icsStart.getHours(),icsStart.getMinutes()], end:[icsEnd.getFullYear(),icsEnd.getMonth()+1,icsEnd.getDate(),icsEnd.getHours(),icsEnd.getMinutes()], title:icsEvent.summary ,location:strikeThrough(icsEvent.location)+" "+eventToAdd.location, description:strikeThrough(icsEvent.description)+" "+eventToAdd.teacher, alarms:alarm,productId:"AurionFetcherJS", uid:icsEvent.uid};
+              let tmp2 = {start:[icsStart.getFullYear(),icsStart.getMonth()+1,icsStart.getDate(),icsStart.getHours(),icsStart.getMinutes()], end:[icsEnd.getFullYear(),icsEnd.getMonth()+1,icsEnd.getDate(),icsEnd.getHours(),icsEnd.getMinutes()], title:icsEvent.summary ,location:location, description:description, alarms:alarm,productId:"AurionFetcherJS", uid:icsEvent.uid};
               trail.editedEvents.push(tmp2);
               eventToAdd.checked = true;
             }
@@ -71,7 +85,7 @@ module.exports = async function (trail) {
     const { error, value } = ics.createEvents(eventsToSync);
 
     if (error) {
-      console.log(error)
+      console.log(error);
       return
     }
     writeFileSync("data/events.ics", value);
@@ -102,7 +116,7 @@ module.exports = async function (trail) {
     const { error, value } = ics.createEvents(eventsToSync);
 
     if (error) {
-      console.log(error)
+      console.log(error);
       return
     }
     writeFileSync("data/events.ics", value);

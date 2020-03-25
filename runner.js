@@ -9,7 +9,7 @@ const config = require('./config/config.json')
 
 var trail = {};
 
-async function runner() { 
+async function runner() {
     console.log(new Date());
     try {
         await credFetcher(trail);
