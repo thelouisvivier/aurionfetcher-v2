@@ -6,19 +6,24 @@ module.exports = {
   onSync : async function (trail) {
     const bot = new TelegramBot(config.telegramBotToken);
     let now = new Date();
-    if (trail.editedEvents.length != 0 || trail.addedEvents.length != 0 || now.getHours() == 23){
+    if (trail.editedEvents.length !== 0 || trail.addedEvents.length !== 0 || now.getHours() === 23){
+      //Stats message
       let message1 = "🤖📆"+trail.fetchedEventsNbr+"✏️"+trail.editedEvents.length+"➕"+trail.addedEvents.length;
       await bot.sendMessage(config.telegramChatId, message1);
-      if (trail.editedEvents.length != 0){
+
+      //Message fo edited events
+      if (trail.editedEvents.length !== 0){
         for (const editedEvent of trail.editedEvents){
-          let message2 = "✏️Edited\n"+editedEvent.title+"\n"+editedEvent.start[2]+"/"+editedEvent.start[1]+"/"+editedEvent.start[0]+" de "+(editedEvent.start[3]+1)+":"+editedEvent.start[4]+" à "+(editedEvent.end[3]+1)+":"+editedEvent.end[4]+"\nEn "+editedEvent.location+" par "+editedEvent.description;
+          let message2 = "✏️Edited\n"+editedEvent.title+"\n"+dateFormatter(editedEvent.start,editedEvent.end)+"\nEn "+editedEvent.location+" par "+editedEvent.description;
           await bot.sendMessage(config.telegramChatId, message2);
         }
         console.log("          Notifications sent !");
       }
-      if(trail.addedEvents.length != 0){
+
+      //Message for new events
+      if(trail.addedEvents.length !== 0){
         for (const addedEvent of trail.addedEvents){
-          let message3 = "➕Added\n"+addedEvent.title+"\n"+addedEvent.start[2]+"/"+addedEvent.start[1]+"/"+addedEvent.start[0]+" de "+(addedEvent.start[3]+1)+":"+addedEvent.start[4]+" à "+(addedEvent.end[3]+1)+":"+addedEvent.end[4]+"\nEn "+addedEvent.location+" par "+addedEvent.description;
+          let message3 = "➕Added\n"+addedEvent.title+"\n"+dateFormatter(addedEvent.start,addedEvent.end)+"\nEn "+addedEvent.location+" par "+addedEvent.description;
           await bot.sendMessage(config.telegramChatId, message3);
         }
         console.log("          Notifications sent !");
@@ -36,9 +41,21 @@ module.exports = {
 
   onError : async function(error){
     const bot = new TelegramBot(config.telegramBotToken);
-    let message = "<b>🤖BIP BIP AurionFetcher has encountered an ERROR</b>"+"\n😱😱😱 Trying again in 20 minutes"+"\n🙂For your information, here the error the system send me : "+error;
+    let message = "<b>🤖BIP BIP AurionFetcher has encountered an ERROR</b>"+"\n😱😱😱 Trying again in 20 minutes"+"\n🙂FYI, here the error the system send me : "+error;
     await bot.sendMessage(config.telegramChatId, message,{parse_mode: 'HTML'});
     return true;
   }
 
 };
+
+function dateFormatter(start,end){
+  let ye = start[0];
+  let mo = ("0"+(start[1])).slice(-2);
+  let da = ("0" + start[2]).slice(-2);
+  let sho = ("0" + start[3]).slice(-2);
+  let smin = ("0" + start[4]).slice(-2);
+  let eho = ("0" + end[3]).slice(-2);
+  let emin = ("0" + end[4]).slice(-2);
+
+  return(`${da}/${mo}/${ye} de ${sho}h${smin} à ${eho}h${emin}`);
+}
