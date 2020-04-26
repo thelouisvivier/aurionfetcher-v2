@@ -42,7 +42,7 @@ module.exports = async function (trail) {
         courseTitle = tmpCt[1];
       }
       else{
-        courseTitle = "Évenement Special";
+        courseTitle = "?";
       }
     }
 
@@ -63,8 +63,48 @@ module.exports = async function (trail) {
       location = "ISEN Lille";
     }
 
-    if (e["className"]){
+    if (e["className"] === "est-epreuve"){
       courseTitle = "🎓"+courseTitle;
+    }
+
+    if (e["className"] === "TD"){
+      courseTitle = "TD "+courseTitle;
+    }
+
+    if (e["className"] === "COURS_TD"){
+      courseTitle = "CM/TD "+courseTitle;
+    }
+
+    if (e["className"] === "TP"){
+      courseTitle = "TP "+courseTitle;
+    }
+
+    if (e["className"] === "CM"){
+      courseTitle = "CM "+courseTitle;
+    }
+
+    if (e["className"] === "PROJET"){
+      courseTitle = "Proj. "+courseTitle;
+    }
+
+    if (e["className"] === "CONF"){
+      courseTitle = "Conf. "+courseTitle;
+    }
+
+    if (e["className"] === "SEMINAIRE"){
+      courseTitle = "Séminaire "+courseTitle;
+    }
+
+    if (e["className"] === "REUNION"){
+      courseTitle = "Réunion "+courseTitle;
+    }
+
+    if (e["className"] === "ENTREPRISE"){
+      courseTitle = "Entreprise "+courseTitle;
+    }
+
+    if (e["className"] === "EXAM"){
+      courseTitle = "Examen(LOL) "+courseTitle;
     }
 
     tmp = {"start":e["start"], "end":e["end"] ,"course":courseTitle, "location":location, "teacher":teacherName};
