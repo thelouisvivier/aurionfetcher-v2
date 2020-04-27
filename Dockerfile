@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10-slim
 
 RUN apt-get update && apt-get install -y wget gnupg \
   && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
