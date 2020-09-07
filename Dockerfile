@@ -7,6 +7,16 @@ RUN apt-get update && apt-get install -y wget gnupg \
   && apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
+  && RUN apk add --no-cache \
+           chromium \
+           nss \
+           freetype \
+           freetype-dev \
+           harfbuzz \
+           ca-certificates \
+           ttf-freefont \
+           nodejs \
+           yarn
 
 
 ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
