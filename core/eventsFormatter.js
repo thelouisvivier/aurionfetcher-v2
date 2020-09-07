@@ -59,6 +59,9 @@ module.exports = async function (trail) {
     if (tmp.match(locationRE) != null){
       location = locationRE.exec(tmp)[1].trim();
     }
+    else if (tmp.includes("TEAMS")){
+      location = "Teams";
+    }
     else {
       location = "ISEN Lille";
     }
