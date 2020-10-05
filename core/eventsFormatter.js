@@ -9,19 +9,55 @@ module.exports = async function (trail) {
   for (const e of events) {
     let tmp = e["title"];
 
+    let courseTitle;
+    let teacherName;
+    let location;
+
+    //Introducing new method to parse title
+
+    //- ISEN C405 - Amphi Prépa - VidéoProj\nModule de Base Cryptographie\n13:30 - 17:15\nMonsieur CHENEVERT
+    //en TEAMS\n - ISEN A106 - TP Réseaux\nModule de Base Operating Systems\n08:30 - 12:15\nMonsieur DELANNOY
+    let infosList = tmp.split("\n");
+    for (let e of infosList){
+      e = e.trim();
+    }
+    infosList = infosList.reverse();
+
+    teacherName = infosList[0];
+    courseTitle = infosList[2];
+    location = infosList[3];
+
+    //Find only room number in location
+    const locationRE = /ISEN ([(\wéèà)]*)/g;
+    if (location.match(locationRE) != null){
+      location = locationRE.exec(location)[0].trim();
+    }
+
+    // For teams courses, add "TEAMS"
+    for (let e of infosList){
+      if(e.includes("en TEAMS") && !location.includes("teams")) {
+        location = "💻TEAMS - " + location;
+        break;
+      }
+    }
+
+
+
+
+    /*
     const courseTitle1RE = /Cours de ([(\w éèà)]*)/g;
     const courseTitle2RE = /Cours d'([(\w éèà)]*)/g;
+    const courseTitle3RE = /Module ([(\w éèà)]*)/g;
     const teacherName1RE = /Madame ([(\w éèà)]*)/g;
     const teacherName2RE = /Monsieur ([(\w éèà)]*)/g;
     const locationRE = /ISEN ([(\wéèà)]*)/g;
     const letters = /[A-z ]+/;
 
-    let courseTitle;
-    let teacherName;
-    let location;
-
     if (tmp.match(courseTitle1RE) != null){
       courseTitle = courseTitle1RE.exec(tmp)[1].trim();
+    }
+    else if(tmp.match(courseTitle2RE) != null) {
+      courseTitle = courseTitle2RE.exec(tmp)[1].trim();
     }
     else if(tmp.match(courseTitle2RE) != null) {
       courseTitle = courseTitle2RE.exec(tmp)[1].trim();
@@ -65,6 +101,8 @@ module.exports = async function (trail) {
     else {
       location = "ISEN Lille";
     }
+
+     */
 
     if (e["className"] === "est-epreuve"){
       courseTitle = "🎓"+courseTitle;
