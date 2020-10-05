@@ -33,6 +33,10 @@ module.exports = async function (trail) {
       location = locationRE.exec(location)[0].trim();
     }
 
+    if(location.includes("en teams")){
+      location = "💻TEAMS";
+    }
+
     // For teams courses, add "TEAMS"
     for (let e of infosList){
       if(e.includes("en TEAMS") && !location.includes("teams")) {
