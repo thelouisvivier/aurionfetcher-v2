@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": ">=2.1.1",
-    "axios": ">=0.19.2",
+    "axios": ">=0.21.2",
     "elementtree": ">=0.1.7",
     "node-ical": ">=0.10.0",
     "ics": ">=2.19.0",
