@@ -4,7 +4,7 @@ const path = require('path')
 const config = require('../config/config.json')
 
 module.exports = async function () {
-  app.get(encodeURI('/aurionfetcher/'+config.username+'/suscribe'), (req, res) => {
+  app.get('/aurionfetcher/'+config.username.split('@')[0]+'/suscribe', (req, res) => {
 
       res.set('Content-Type', 'text/calendar;charset=utf-8');
       res.set('Content-Disposition', 'attachment; filename="events.ics"');
