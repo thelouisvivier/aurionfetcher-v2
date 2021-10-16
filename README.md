@@ -1,4 +1,4 @@
-# aurionfetcherjs
+# aurionfetcher-v2
 
 Programme en javascript permettant de télécharger le planning d'Aurion, et mettre le calendrier à disposition via une souscription iCal, puis notifier l'utilisateur sur telegram en cas de changements et de problèmes.  
 
